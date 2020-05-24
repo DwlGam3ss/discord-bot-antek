@@ -9,7 +9,7 @@ module.exports = {
         const { channel, guild, client } = msg 
 
 
-        const time = new Date().toLocaleTimeString([], {timeZone:'Europe/Warsaw', hour: '2-digit', minute:'2-digit'})
+        const time = new Date().toLocaleTimeString('de-AT', {timeZone:'Europe/Warsaw', hour: '2-digit', minute:'2-digit'})
         const channelName = `Godzina 》 ${time}`
 
         const createdChannel = await guild.createChannel(channelName,{ type: "voice", })
