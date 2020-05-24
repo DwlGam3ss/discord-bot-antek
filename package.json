@@ -1,0 +1,35 @@
+{
+  "name": "antek",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "dev:watch": "nodemon index.js",
+    "start": "node /index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "DwlGam3ss",
+  "license": "MIT",
+  "dependencies": {
+    "ascii-table": "0.0.9",
+    "discord.js": "^11.5.1",
+    "fs": "0.0.1-security",
+    "js-yaml": "^3.13.1",
+    "nodemon": "^2.0.1"
+  },
+  "description": "Discord Bot",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DwlGam3ss/discord-bot-antek.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DwlGam3ss/discord-bot-antek/issues"
+  },
+  "homepage": "https://github.com/DwlGam3ss/discord-bot-antek#readme",
+  "keywords": [
+    "discord",
+    "discord-bot",
+    "discord-js"
+  ]
+}
