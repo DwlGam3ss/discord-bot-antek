@@ -8,7 +8,7 @@ module.exports = {
     async run(msg, args) {
         const { channel, guild, client } = msg 
 
-        const time = new Date().toLocaleTimeString(PL, Poland)
+        const time = new Date().toLocaleTimeString()
         const channelName = `Godzina 》 ${time}`
 
         const createdChannel = await guild.createChannel(channelName,{ type: "voice", })
