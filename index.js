@@ -30,9 +30,10 @@ client.on('ready', () => {
         //Inicjalizuje interval dla każdej gildii
         const clockChannels = config.clocks
         setInterval(() => {
-          const time = new Date().toLocaleTimeString().slice(0, 5)
+          const time = new Date().toLocaleTimeString([], {timeZone:'Europe/Warsaw', hour: '2-digit', minute:'2-digit'})
           const channelName = ` Godzina 》 ${time}`
-
+          console.log(time)
+          
           clockChannels.forEach((channelId, index) => {
             //Sprawdza czy kanał istnieje
             if (guild.channels.has(channelId)) {
@@ -59,3 +60,5 @@ client.login(token)
 client.on("debug", () => {})
 client.on("warn", () => {})
 client.on("error", () => {})
+
+
