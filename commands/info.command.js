@@ -14,7 +14,7 @@ module.exports = {
         
             const embed = new RichEmbed()
             .setTitle(botName)
-            .setColor(0xff00ee)
+            .setColor(0xffbd08)
             .setDescription(botDescription)
             .addField("Autor", botAuthor)
             .addField("Wersja", botVersion)
