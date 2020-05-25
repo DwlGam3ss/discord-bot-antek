@@ -24,6 +24,7 @@ module.exports = {
             }
             client.settings.get(guild.id).clocks.push(channelId)
             client.saveConfig(guild.id)
+            msg.reply("Kanał został utworzony pomyślnie!")
     }
 },
 }
