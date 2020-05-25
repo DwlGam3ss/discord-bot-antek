@@ -46,7 +46,7 @@ client.on('ready', () => {
               client.saveConfig(guildId)
               }
             })
-          },  3000);
+          }, 10 * 3000);
       
     }
   }
