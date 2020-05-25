@@ -1,3 +1,5 @@
+const { RichEmbed } = require("discord.js")
+
 module.exports = {
     name: "wyczysc",
     description: "Usuwanie wiadomości z kanału tekstowego",
@@ -23,5 +25,15 @@ module.exports = {
 
 
       channel.bulkDelete(amount)
-    },
+
+      const commandName = "Wyczyść"
+      const Description = `Usunięto, ${amount} wiadomości!`
+  
+      const wyczysc = new RichEmbed()
+      .setTitle(commandName)
+      .setColor(0xfcba03)
+      .setDescription(Description)
+      .setTimestamp()
+    channel.send(wyczysc)
+    }
 }

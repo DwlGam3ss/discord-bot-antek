@@ -1,4 +1,4 @@
-const { Collection } = require("discord.js")
+const { Collection, RichEmbed } = require("discord.js")
 
 const { readdirSync } = require("fs")
 
@@ -96,7 +96,15 @@ client.on('message', msg => {
       client.commands.get(cmdName).run(msg, args)
   } catch(error) {
       console.log(error)
-      msg.reply("Wystąpił błąd podczas próby wykonania tego polecenia!")
+      const commandName = "Błąd"
+      const Description = "Wystąpił błąd podczas próby wykonania tego polecenia!"
+  
+      const blad = new RichEmbed()
+      .setTitle(commandName)
+      .setColor(0xfc0303)
+      .setDescription(Description)
+      .setTimestamp()
+    channel.send(blad)
   }
 })
 }
