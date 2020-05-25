@@ -32,7 +32,6 @@ client.on('ready', () => {
         setInterval(() => {
           const time = new Date().toLocaleTimeString('de-AT', {timeZone:'Europe/Warsaw', hour: '2-digit', minute:'2-digit', hourCycle: 'h24'})
           const channelName = ` Godzina 》 ${time}`
-          console.log(time)
           
           clockChannels.forEach((channelId, index) => {
             //Sprawdza czy kanał istnieje
