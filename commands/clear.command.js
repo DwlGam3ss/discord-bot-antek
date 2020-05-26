@@ -1,16 +1,17 @@
-const { RichEmbed } = require("discord.js")
+const { MessageEmbed, Permissions: { FLAGS } } = require("discord.js")
 
 module.exports = {
     name: "wyczysc",
     description: "Usuwanie wiadomości z kanału tekstowego",
     args: true,
-    // !clear <liczba>
     usage: "<liczba>",
     guildOnly: true,
     cooldown: 10,
+    botPermissions: [FLAGS.MANAGE_MESSAGES],
+    userPermissions: [FLAGS.MANAGE_MESSAGES],
 
     run(msg, args) {
-        const { channel } = msg 
+        const { channel, member, guild } = msg 
 
     const amount = parseInt(args[0])
 
@@ -29,7 +30,7 @@ module.exports = {
       const commandName = "Wyczyść"
       const Description = `Usunięto, ${amount} wiadomości!`
   
-      const wyczysc = new RichEmbed()
+      const wyczysc = new MessageEmbed()
       .setTitle(commandName)
       .setColor(0xfcba03)
       .setDescription(Description)

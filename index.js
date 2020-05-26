@@ -4,6 +4,7 @@ const { token } = require("./config.js")
 
 const commandHandler = require("./handlers/command.handler.js")
 const settingsHandler = require("./handlers/settings.handler.js")
+const apiHandler = require("./handlers/api.handler")
 
 const client = new Client()
 
@@ -11,6 +12,8 @@ const client = new Client()
 commandHandler(client)
 //Inicjuje moduł obsługi ustawień
 settingsHandler(client)
+//Inicjuje moduł obsługi API
+apiHandler(client)
 
 
 client.on('ready', () => {
@@ -21,8 +24,8 @@ client.on('ready', () => {
   client.settings.forEach((config, guildId) => {
     const { guilds } = client
     //Sprawdza czy istnieje
-    if (guilds.has(guildId)) {
-      const guild = guilds.get(guildId)
+    if (guilds.cache.has(guildId)) {
+      const guild = guilds.cache.get(guildId)
       //Sprawdza czy jest dostępna
       if (guild.available) {
         // console.log("available")
@@ -35,9 +38,9 @@ client.on('ready', () => {
           
           clockChannels.forEach((channelId, index) => {
             //Sprawdza czy kanał istnieje
-            if (guild.channels.has(channelId)) {
+            if (guild.channels.cache.has(channelId)) {
                //console.log("Kanał istnieje")
-               const channelToUpdate = guild.channels.get(channelId)
+               const channelToUpdate = guild.channels.cache.get(channelId)
                channelToUpdate.setName(channelName)
             } else {
               //console.log("Kanał nie istnieje")

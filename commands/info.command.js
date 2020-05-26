@@ -1,4 +1,4 @@
-const { RichEmbed } = require("discord.js")
+const { MessageEmbed } = require("discord.js")
 
 module.exports = {
     name: "info",
@@ -12,7 +12,7 @@ module.exports = {
             const botName = "Antek"
             const botDescription = "Narazie dużo nie potrafi, ale ciągle sie rozwija."
         
-            const embed = new RichEmbed()
+            const embed = new MessageEmbed()
             .setTitle(botName)
             .setColor(0xffbd08)
             .setDescription(botDescription)

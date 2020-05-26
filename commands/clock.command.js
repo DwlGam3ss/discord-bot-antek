@@ -1,18 +1,22 @@
+const { Permissions: { FLAGS } } = require("discord.js")
+
 module.exports = {
     name: "zegar",
-    description: "Komenda zegara",
+    description: "Tworzy zegar o nazwie 'Godzina 》 <godzina> '",
     args: true,
     guildOnly: true,
-    usage: "<action>[add]",
+    usage: "[add]",
+    botPermissions: [FLAGS.MANAGE_CHANNELS],
+    userPermissions: [FLAGS.MANAGE_CHANNELS],
 
     async run(msg, args) {
         const { channel, guild, client } = msg 
 
 
         const time = new Date().toLocaleTimeString('de-AT', {timeZone:'Europe/Warsaw', hour: '2-digit', minute:'2-digit', hourCycle: 'h24'}).slice(0, 5)
-        const channelName = `Godzina 》 ${time}`
+        const channelName = ` Godzina 》 ${time}`
 
-        const createdChannel = await guild.createChannel(channelName,{ type: "voice", })
+        const createdChannel = await guild.channels.create(channelName,{ type: "voice", })
 
         if (createdChannel) {
             const channelId = createdChannel.id

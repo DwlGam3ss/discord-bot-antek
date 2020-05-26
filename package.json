@@ -12,8 +12,10 @@
   "license": "MIT",
   "dependencies": {
     "ascii-table": "0.0.9",
-    "discord.js": "^11.5.1",
+    "axios": "^0.19.2",
+    "discord.js": "^12.0.2",
     "fs": "0.0.1-security",
+    "js-helpers": "github:m7rlin/js-helpers",
     "js-yaml": "^3.13.1",
     "nodemon": "^2.0.1"
   },

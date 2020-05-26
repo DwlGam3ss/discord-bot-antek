@@ -1,4 +1,4 @@
-const { Collection, RichEmbed } = require("discord.js")
+const { Collection, MessageEmbed } = require("discord.js")
 
 const { readdirSync } = require("fs")
 
@@ -57,6 +57,20 @@ client.on('message', msg => {
     return msg.reply("Co ty robisz?! To nie jest serwer")
   }
 
+  //Sprawdza uprawnienia
+  //Sprawdza uprawnienia bota
+  if (cmd.botPermissions && cmd.botPermissions.length) {
+    if (!guild.me.permissionsIn(channel).has(cmd.botPermissions)) {
+      return channel.send(`Potrzebuje więcej uprawnień, aby wykonać komende. Takie uprawnienie potrzebuje: \`${cmd.botPermissions.join("`,`")}\`.`)
+    }
+  }
+  //Sprawdza uprawnienia usera
+  if (cmd.userPermissions && cmd.userPermissions.length) {
+    if (!msg.member.permissionsIn(channel).has(cmd.userPermissions)) {
+      return msg.reply("Nie masz wymaganych uprawnień!")
+    }
+  }
+
   if (cmd.args && !args.length) {
       let reply = `Nie podano żadnych argumentów, ${msg.author}!`
 
@@ -99,7 +113,7 @@ client.on('message', msg => {
       const commandName = "Błąd"
       const Description = "Wystąpił błąd podczas próby wykonania tego polecenia!"
   
-      const blad = new RichEmbed()
+      const blad = new MessageEmbed()
       .setTitle(commandName)
       .setColor(0xfc0303)
       .setDescription(Description)
