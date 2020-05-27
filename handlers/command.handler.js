@@ -51,7 +51,7 @@ client.on('message', msg => {
   //Sprawdza czy komenda istnieje
   if (!client.commands.has(cmdName)) return
 
-  const cmd =client.commands.get(cmdName)
+  const cmd = client.commands.get(cmdName)
 
   if (cmd.guildOnly && !guild) {
     return msg.reply("Co ty robisz?! To nie jest serwer")

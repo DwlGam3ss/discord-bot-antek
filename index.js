@@ -1,12 +1,14 @@
 const { Client }  = require("discord.js")
+const { token, prefix } = require("./config.js")
 
-const { token } = require("./config.js")
 
 const commandHandler = require("./handlers/command.handler.js")
 const settingsHandler = require("./handlers/settings.handler.js")
 const apiHandler = require("./handlers/api.handler")
+const eventHandler = require("./handlers/event.handler")
 
-const client = new Client()
+
+const client = new Client({ partials: ["MESSAGE", "REACTION"] })
 
 //Inicjuje moduł obsługi komend
 commandHandler(client)
@@ -14,6 +16,14 @@ commandHandler(client)
 settingsHandler(client)
 //Inicjuje moduł obsługi API
 apiHandler(client)
+//Inicjuje moduł obsługi wydarzeń
+eventHandler(client)
+
+const rulesMessageId = "715201354548772976"
+
+const guildRoles = {
+  VERIFIED: "714937925527273524"
+}
 
 
 client.on('ready', () => {
@@ -55,6 +65,43 @@ client.on('ready', () => {
   }
 })
 })
+
+client.on("messageReactionAdd", async (reaction, user) => {
+
+  if (reaction.partial) await reaction.fetch()
+
+  const { message } = reaction
+  if (message.id === rulesMessageId) {
+    const member = message.channel.guild.members.cache.get(user.id)
+
+    if (reaction.emoji.name === "👍") {
+      member.roles.add(guildRoles.VERIFIED)
+
+    }
+    
+
+  }
+})
+
+
+client.on("messageReactionRemove", async (reaction, user) => {
+
+  if (reaction.partial) await reaction.fetch()
+
+  const { message } = reaction
+  if (message.id === rulesMessageId) {
+    const member = message.channel.guild.members.cache.get(user.id)
+
+    if (reaction.emoji.name === "👍") {
+      member.roles.remove(guildRoles.VERIFIED)
+
+    }
+    
+
+  }
+})
+
+
 
 client.login(token)
 

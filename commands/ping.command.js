@@ -1,11 +1,14 @@
-const { ImageURLOptions } = require("discord.js")
+const Discord = require("discord.js")
+
 
 module.exports = {
     name: "ping",
     description: "Ping!",
 
-    run(msg) {
-    msg.reply('Pong!')
-
-    }
+    async run( msg, args, channel ) {
+        const m = await msg.channel.send(`Pong! ${m.createdTimestamp - msg.createdTimestamp}ms`)
+        m.edit(`Pong! ${m.createdTimestamp - msg.createdTimestamp}ms`)
+   }
 }
+
+

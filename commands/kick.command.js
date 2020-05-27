@@ -31,7 +31,7 @@ module.exports = {
 
 
         const commandName = "Wyrzucono użytkownika"
-        const description = `Użytkownik **${kickedUser.displayName}** został wyrzucony.${reasonArg ? `\nPowód: ${reasonArg}` : ""}`
+        const description = `Użytkownik **${kickedUser.user.username}#${kickedUser.user.discriminator}** został wyrzucony.${reasonArg ? `\nPowód: ${reasonArg}` : ""}`
 
         const embed = new MessageEmbed()
         .setTitle(commandName)

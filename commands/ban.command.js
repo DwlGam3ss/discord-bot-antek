@@ -45,7 +45,7 @@ module.exports = {
         memberToBan.ban(banOptions).then((bannedres) => {
 
         const commandName = "Zbanowano użytkownika"
-        const description = `Użytkownik **${bannedres.displayName}** został zbanowany.${reasonArg ? `\nPowód: ${reasonArg}` : ""}`
+        const description = `Użytkownik **${bannedres.user.username}#${bannedres.user.discriminator}** został zbanowany.${reasonArg ? `\nPowód: ${reasonArg}` : ""}`
 
         const embed = new MessageEmbed()
         .setTitle(commandName)
