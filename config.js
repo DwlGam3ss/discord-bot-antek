@@ -1,8 +1,7 @@
+const dotenv = require("dotenv").config()
+
 module.exports = {
-    token: "NzExNjg2ODA3OTA5MDQwMjM5.XsGoMA.uFm--oeC-Vh27pJ-cB88wLqz4gI",
+    token: process.env.token,
     prefix: "!",
     corona_api: "https://corona.lmao.ninja/v2",
-    YOUTUBE_API_KEY: "AIzaSyBQoFoHSThiADXuKtnSpKNRnxIboQI54UM",
-    QUEUE_LIMIT: 0,
-    COLOR: "BLUE"
 }

@@ -14,6 +14,7 @@
     "ascii-table": "0.0.9",
     "axios": "^0.19.2",
     "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0",
     "fluent-ffmpeg": "^2.1.2",
     "fs": "0.0.1-security",
     "js-helpers": "github:m7rlin/js-helpers",
