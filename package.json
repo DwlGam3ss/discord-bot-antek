@@ -19,6 +19,8 @@
     "fs": "0.0.1-security",
     "js-helpers": "github:m7rlin/js-helpers",
     "js-yaml": "^3.13.1",
+    "moment": "^2.26.0",
+    "moment-duration": "0.0.6",
     "nodemon": "^2.0.1",
     "opusscript": "0.0.7",
     "simple-youtube-api": "^5.2.1",

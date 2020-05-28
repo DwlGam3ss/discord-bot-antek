@@ -1,7 +1,6 @@
 const { Client }  = require("discord.js")
 const { token, prefix } = require("./config.js")
 
-
 const commandHandler = require("./handlers/command.handler.js")
 const settingsHandler = require("./handlers/settings.handler.js")
 const apiHandler = require("./handlers/api.handler")
@@ -100,6 +99,16 @@ client.on("messageReactionRemove", async (reaction, user) => {
 
   }
 })
+
+client.on('guildMemberAdd' , (member) => {
+
+  const channel = member.guild.channels.cache.find(channel => channel.name === "🤗│powitania")
+  if(!channel) return
+  
+
+  channel.send(`**🥳Cieszymy się, że do nas dołaczyłeś __${member.user.username}__🥳** `)
+})
+
 
 
 
