@@ -1,9 +1,11 @@
 const { prefix } = require("../config.js")
+const { MessageEmbed } = require("discord.js")
 
 module.exports = {
   name: "pomoc",
   description:
     "Lista wszyskich komend lub informacje o konkretnej komendzie.",
+  aliases: ["help","pomocy"],
   usage: "[nazwa komendy]",
   cooldown: 5,
 
@@ -14,6 +16,14 @@ module.exports = {
 
     const data = []
 
+
+    const embed = new MessageEmbed()
+    .setTitle("To jest lista wszystkich moich komend:")
+    .setColor(0xfcba03)
+    .setDescription(commands.map((command) => command.name).join(" | "))
+    .addField("Lub", `\nMożesz napisać \`${prefix}pomoc [nazwa komendy]\` , aby uzyskać informacje na temat określonej komendy`)
+    .setTimestamp()
+
     // =====================================
     //
     // No arguments provided
@@ -21,11 +31,8 @@ module.exports = {
     // =====================================
     if (!args.length) {
       // Create list with all commands
-      data.push("To jest lista wszystkich moich komend:")
-      data.push(commands.map((command) => command.name).join(", "))
-      data.push(
-        `\nMożesz napisać \`${prefix}pomoc [nazwa komendy]\` , aby uzyskać informacje na temat określonej komendy`,
-      )
+      data.push(embed)
+      
 
       return msg.author
         .send(data, { split: true })
@@ -34,7 +41,7 @@ module.exports = {
           msg.reply("Wysłałem wszystkie moje komendy w wiadomości prywatnej!")
         })
         .catch((err) => {
-          console.error(`Nie można wysłać help na DM do ${msg.author.tag}.\n`, err)
+          console.error(`Nie można wysłać pomoc na DM do ${msg.author.tag}.\n`, err)
           msg.reply("Oops, wygląda na to, że nie moge wysłać do Ciebie wiadomości prywatnej! Sprawdź czy przyjmujesz wiadomości od nieznajomych!")
         })
     }
@@ -52,6 +59,7 @@ module.exports = {
     if (!command) {
       return msg.reply("To nie jest poprawna komenda!")
     }
+
 
     data.push(`**Nazwa:** ${command.name}`)
 

@@ -2,7 +2,7 @@ const { Permissions: { FLAGS } } = require("discord.js")
 
 module.exports = {
     name: "zegar",
-    description: "Tworzy zegar o nazwie 'Godzina 》 <godzina> '",
+    description: "Tworzy zegar o nazwie 'Godzina 》 <godzina> ' nazwa jeszcze nie podlega zmianie!",
     args: true,
     guildOnly: true,
     usage: "[add]",

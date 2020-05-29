@@ -27,7 +27,8 @@ const guildRoles = {
 
 client.on('ready', () => {
   console.log(`${client.user.tag} jest online!`)
-  client.user.setActivity("Nowych komend!",{type: 'LISTENING'})
+  client.user.setActivity("!Pomoc",{type: 'PLAYING'})
+
 
   //Inicjalizuje interval dla każdej gildii
   client.settings.forEach((config, guildId) => {

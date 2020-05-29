@@ -7,7 +7,6 @@ module.exports = {
     description: "Pokazuje informacje o śmierciach, zarażonych i wyleczonych osobach",
     aliases: ["wirus", "corona"],
     args: true,
-    // !clear <liczba>
     usage: "<kraj|all>",
     cooldown: 10,
 

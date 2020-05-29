@@ -48,10 +48,11 @@ client.on('message', msg => {
   
     const cmdName = args.shift().toLocaleLowerCase()
     
-  //Sprawdza czy komenda istnieje
-  if (!client.commands.has(cmdName)) return
-
-  const cmd = client.commands.get(cmdName)
+    
+    
+    const cmd = client.commands.get(cmdName) ||client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName))
+    //Sprawdza czy komenda istnieje
+    if (!cmd) return
 
   if (cmd.guildOnly && !guild) {
     return msg.reply("Co ty robisz?! To nie jest serwer")
