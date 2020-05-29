@@ -43,7 +43,7 @@ client.on('ready', () => {
         //Inicjalizuje interval dla każdej gildii
         const clockChannels = config.clocks
         setInterval(() => {
-          const time = new Date().toLocaleTimeString('de-AT', {timeZone:'Europe/Warsaw', hour: '2-digit', minute:'2-digit', hourCycle: 'h24'})
+          const time = new Date().toLocaleTimeString('pl-PL', {timeZone:'Europe/Warsaw'})
           const channelName = ` Godzina 》 ${time}`
           
           clockChannels.forEach((channelId, index) => {
@@ -55,11 +55,11 @@ client.on('ready', () => {
             } else {
               //console.log("Kanał nie istnieje")
               //Usuwanie Id z configu
-              clockChannels.splice(index,1)
+              clockChannels.splice(index, 1)
               client.saveConfig(guildId)
               }
             })
-          }, 10 * 3000);
+          }, 3000);
       
     }
   }

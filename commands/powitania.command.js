@@ -9,7 +9,7 @@ const embed = new MessageEmbed()
 
 module.exports = {
     name: "powitania",
-    description: "Kanał na którym bot wysyła wiadomości jeśli ktoś dołaczy do",
+    description: "Kanał na którym bot wysyła wiadomości jeśli ktoś dołaczy do serwera.",
 
     async run( msg, args, channel ) {
         const m = await msg.channel.send(embed)
