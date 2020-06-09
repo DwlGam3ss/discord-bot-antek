@@ -2,7 +2,7 @@ const { MessageEmbed, Permissions: { FLAGS } } = require("discord.js")
 
 module.exports = {
     name: "wyczysc",
-    description: "Usuwanie wiadomości z kanału tekstowego",
+    description: "Usuwanie wiadomości z kanału tekstowego.",
     args: true,
     usage: "<liczba>",
     guildOnly: true,
