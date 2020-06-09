@@ -49,9 +49,9 @@ client.on('ready', () => {
           clockChannels.forEach((channelId, index) => {
             //Sprawdza czy kanał istnieje
             if (guild.channels.cache.has(channelId)) {
-               //console.log("Kanał istnieje")
-               const channelToUpdate = guild.channels.cache.get(channelId)
-               channelToUpdate.setName(channelName)
+              console.log("Kanał istnieje", channelName, channelId)
+              const channelToUpdate = guild.channels.cache.get(channelId)
+              channelToUpdate.setName(channelName).then(updatedChannel => console.log(`Channel's new name is ${updatedChannel.name}`)).catch(console.error)
             } else {
               //console.log("Kanał nie istnieje")
               //Usuwanie Id z configu
@@ -59,7 +59,7 @@ client.on('ready', () => {
               client.saveConfig(guildId)
               }
             })
-          }, 3000);
+          },60 * 1000);
       
     }
   }

@@ -10,7 +10,7 @@ module.exports = {
     botPermissions: [FLAGS.MANAGE_MESSAGES],
     userPermissions: [FLAGS.MANAGE_MESSAGES],
 
-    run(msg, args) {
+     run(msg, args) {
         const { channel, member, guild } = msg 
 
     const amount = parseInt(args[0])
@@ -30,11 +30,15 @@ module.exports = {
       const commandName = "Wyczyść"
       const Description = `Usunięto, ${amount} wiadomości!`
   
-      const wyczysc = new MessageEmbed()
+      const wyczysc =  new MessageEmbed()
       .setTitle(commandName)
       .setColor(0xfcba03)
       .setDescription(Description)
       .setTimestamp()
     channel.send(wyczysc)
+setTimeout(() => {
+    channel.bulkDelete(1)
+}, 5000);
+    
     }
 }
