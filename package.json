@@ -13,17 +13,13 @@
   "dependencies": {
     "ascii-table": "0.0.9",
     "axios": "^0.19.2",
-    "canvas": "^2.6.1",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
     "fluent-ffmpeg": "^2.1.2",
     "fs": "0.0.1-security",
     "js-helpers": "github:m7rlin/js-helpers",
     "js-yaml": "^3.13.1",
-    "moment": "^2.26.0",
-    "moment-duration": "0.0.6",
     "nodemon": "^2.0.1",
-    "opusscript": "0.0.7",
     "simple-youtube-api": "^5.2.1",
     "ytdl-core": "^2.1.5",
     "ytdl-core-discord": "^1.2.0"
