@@ -22,6 +22,16 @@ module.exports = {
         ctx.fillStyle = "white"
         ctx.fillText(msg.member.displayName, 275, 75)
 
+        ctx.beginPath()
+        ctx.arc(125, 125, 100, 0, Math.PI * 2, true)
+        ctx.closePath()
+        ctx.clip()
+
+
+        const avatar = await Canvas.loadImage(msg.member.user.displayAvatarURL({ format: "jpg" }))
+
+        ctx.drawImage(avatar, 25, 25, 200, 200)
+
         const attachment =  new MessageAttachment(canvas.toBuffer(), "wallpaper.jpg")
 
         msg.channel.send("", attachment)
