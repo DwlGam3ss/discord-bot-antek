@@ -11,7 +11,7 @@ module.exports = {
     name: "ping",
     description: "Ping!",
 
-    async run( msg, args, channel ) {
+    async run( msg, args, channel, member ) {
         const m = await msg.channel.send(embed)
         setInterval(() => {
 

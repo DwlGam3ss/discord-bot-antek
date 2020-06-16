@@ -107,8 +107,18 @@ client.on('guildMemberAdd' , (member) => {
   if(!channel) return
   
 
-  channel.send(`**🥳Cieszymy się, że do nas dołaczyłeś __${member.user.username}__🥳** `)
+  channel.send(`**🥳Cieszymy się, że do nas dołaczyłeś ${member}🥳** `)
 })
+
+client.on('guildMemberRemove' , (member) => {
+
+  const channel = member.guild.channels.cache.find(channel => channel.name === "🤗│powitania")
+  if(!channel) return
+  
+
+  channel.send(`**😪Nie cieszymy się, że nas opuściłeś ${member.user.username}**😪`)
+})
+
 
 
 
