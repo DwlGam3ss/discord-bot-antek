@@ -103,7 +103,7 @@ client.on("messageReactionRemove", async (reaction, user) => {
 
 client.on('guildMemberAdd' , (member) => {
 
-  const channel = member.guild.channels.cache.find(channel => channel.name === "🤗│powitania")
+  const channel = member.guild.channels.cache.find(channel => channel.name === "🤗╎powitania")
   if(!channel) return
   
 
@@ -112,7 +112,7 @@ client.on('guildMemberAdd' , (member) => {
 
 client.on('guildMemberRemove' , (member) => {
 
-  const channel = member.guild.channels.cache.find(channel => channel.name === "🤗│powitania")
+  const channel = member.guild.channels.cache.find(channel => channel.name === "🤗╎powitania")
   if(!channel) return
   
 
