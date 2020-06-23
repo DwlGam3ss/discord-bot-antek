@@ -18,10 +18,10 @@ apiHandler(client)
 //Inicjuje moduł obsługi wydarzeń
 eventHandler(client)
 
-const rulesMessageId = "715201354548772976"
+const rulesMessageId = "724785869738868768"
 
 const guildRoles = {
-  VERIFIED: "714937925527273524"
+  VERIFIED: "724044918410182707"
 }
 
 
