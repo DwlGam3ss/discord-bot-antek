@@ -50,7 +50,7 @@ client.on('message', msg => {
     
     
     
-    const cmd = client.commands.get(cmdName) ||client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName))
+    const cmd = client.commands.get(cmdName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName))
     //Sprawdza czy komenda istnieje
     if (!cmd) return
 
@@ -62,7 +62,7 @@ client.on('message', msg => {
   //Sprawdza uprawnienia bota
   if (cmd.botPermissions && cmd.botPermissions.length) {
     if (!guild.me.permissionsIn(channel).has(cmd.botPermissions)) {
-      return channel.send(`Potrzebuje więcej uprawnień, aby wykonać komende. Takie uprawnienie potrzebuje: \`${cmd.botPermissions.join("`,`")}\`.`)
+      return channel.send(`Potrzebuje więcej uprawnień, aby wykonać komende.`)
     }
   }
   //Sprawdza uprawnienia usera

@@ -5,7 +5,6 @@ module.exports = {
   name: "pomoc",
   description:
     "Lista wszyskich komend lub informacje o konkretnej komendzie.",
-  aliases: ["help","pomocy"],
   usage: "[nazwa komendy]",
   cooldown: 5,
 

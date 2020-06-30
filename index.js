@@ -66,6 +66,13 @@ client.on('ready', () => {
 })
 })
 
+const moment = require("moment")
+const Discord  = require("discord.js")
+require("moment-duration-format")
+
+
+
+
 client.on("messageReactionAdd", async (reaction, user) => {
 
   if (reaction.partial) await reaction.fetch()
