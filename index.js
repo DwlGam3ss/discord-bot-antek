@@ -203,7 +203,6 @@ async function execute(message, serverQueue) {
     .setTitle(`Dodane do kolejki`)
     .setDescription(`**${song.title}**`)
     .setColor(0xfcba03)
-    .setFooter()
     serverQueue.songs.push(song);
     return message.channel.send(dodane);
   }
