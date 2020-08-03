@@ -1,4 +1,4 @@
-const { Client }  = require("discord.js")
+const { Client, MessageEmbed }  = require("discord.js")
 const { token, prefix } = require("./config.js")
 const ytdl = require("ytdl-core")
 
@@ -127,75 +127,133 @@ client.on('guildMemberRemove' , (member) => {
   channel.send(`**😪Nie cieszymy się, że nas opuściłeś ${member.user.username}**😪`)
 })
 
-var servers = {}
-
-client.on('message', message => {
-
-  let args = message.content.substring(prefix.length).split(" ")
-
-  switch (args[0]) {
-      case 'play':
-
-          function play(connection, message){
-              var server = servers[message.guild.id]
-
-              server.dispatcher = connection.play(ytdl(server.queue[0], {filter: "audioonly"}))
-
-              server.queue.shift()
-
-              server.dispatcher.on("end", function(){
-                  if(server.queue[0]){
-                      play(connection, message)
-                  }else {
-                      connection.disconnect()
-                  }
-              })
-          }
-
-          if(!args[1]){
-              message.channel.send("link!")
-              return
-          }
-
-          if(!message.member.voice.channel){
-              message.channel.send("Kanał!")
-              return
-          }
-
-          if(!servers[message.guild.id]) servers[message.guild.id] = {
-              queue: []
-          }
-
-          var server = servers[message.guild.id]
-
-          server.queue.push(args[1])
-
-          if(!message.guild.voiceConnection) message.member.voice.channel.join().then (function(connection){
-              play(connection, message)
-          })
 
 
+const queue = new Map();
 
-          break
 
-          case 'skip':
-              var server = servers[message.guild.id]
-              if(server.dispatcher) server.dispatcher.end()
-          break
+client.on("message", async message => {
+  if (message.author.bot) return;
+  if (!message.content.startsWith(prefix)) return;
 
-          case 'stop':
-          var server =  servers[message.guild.id]
-          if(message.guild.voiceConnection){
-              for(var i = server.queue.length -1; i >=0; i--){
-                  server.queue.splice(i, 1)
-              }
-              server.dispatcher.end()
-              console.log('stop')
-          }
-          if(message.guild.connection) message.guild.voiceConnection.disconnect()
-          break
+  const serverQueue = queue.get(message.guild.id);
+
+  if (message.content.startsWith(`${prefix}play`)) {
+    execute(message, serverQueue);
+    return;
+  } else if (message.content.startsWith(`${prefix}skip`)) {
+    skip(message, serverQueue);
+    return;
+  } else if (message.content.startsWith(`${prefix}leave`)) {
+    stop(message, serverQueue);
+    return;
+  } else {
   }
-})
+});
+
+async function execute(message, serverQueue) {
+  const args = message.content.split(" ");
+
+  const voiceChannel = message.member.voice.channel;
+  if (!voiceChannel)
+    return message.channel.send(
+      "Musisz dołączyć do kanału, abym mógł włączyć muzykę!"
+    );
+  const permissions = voiceChannel.permissionsFor(message.client.user);
+  if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
+    return message.channel.send(
+      "Potrzebuje uprawnień, aby dołaczyć i mówić na twoim kanale!"
+    );
+  }
+
+  const songInfo = await ytdl.getInfo(args[1]);
+  const song = {
+    title: songInfo.title,
+    url: songInfo.video_url
+  };
+
+  if (!serverQueue) {
+    const queueContruct = {
+      textChannel: message.channel,
+      voiceChannel: voiceChannel,
+      connection: null,
+      songs: [],
+      volume: 1,
+      playing: true
+    };
+
+    queue.set(message.guild.id, queueContruct);
+
+    queueContruct.songs.push(song);
+
+
+
+
+    try {
+      var connection = await voiceChannel.join();
+      queueContruct.connection = connection;
+      play(message.guild, queueContruct.songs[0]);
+    } catch (err) {
+      console.log(err);
+      queue.delete(message.guild.id);
+      return message.channel.send(err);
+    }
+  } else {
+    const dodane = new MessageEmbed()
+    .setTitle(`Dodane do kolejki`)
+    .setDescription(`**${song.title}**`)
+    .setColor(0xfcba03)
+    .setFooter()
+    serverQueue.songs.push(song);
+    return message.channel.send(dodane);
+  }
+}
+
+function skip(message, serverQueue) {
+  if (!message.member.voice.channel)
+    return message.channel.send(
+      "Musisz być na kanale, aby przewinąć muzykę!"
+    );
+  if (!serverQueue)
+    return message.channel.send("Nie ma żadnej piosenki którą moge przewinąć!");
+  serverQueue.connection.dispatcher.end();
+}
+
+function stop(message, serverQueue) {
+  if (!message.member.voice.channel)
+    return message.channel.send(
+      "Musisz być na kanale, aby wyłączyć muzykę!"
+    );
+  serverQueue.songs = [];
+  serverQueue.connection.dispatcher.end();
+}
+
+function play(guild, song) {
+  const serverQueue = queue.get(guild.id);
+  if (!song) {
+    serverQueue.voiceChannel.leave();
+    queue.delete(guild.id);
+    return;
+  }
+  const aktualnie = new MessageEmbed()
+.setTitle(`Aktualnie gra`)
+.setDescription(`**${song.title}**`)
+.setColor(0xfcba03)
+
+
+  const dispatcher = serverQueue.connection
+    .play(ytdl(song.url))
+    .on("finish", () => {
+      serverQueue.songs.shift();
+      play(guild, serverQueue.songs[0]);
+    })
+    .on("error", error => console.error(error));
+  dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
+  serverQueue.textChannel.send(aktualnie);
+}
+
+
+
 
 
 
@@ -207,5 +265,4 @@ client.login(token)
 client.on("debug", () => {})
 client.on("warn", () => {})
 client.on("error", () => {})
-
 
