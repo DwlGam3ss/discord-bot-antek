@@ -1,5 +1,6 @@
 const { Client }  = require("discord.js")
 const { token, prefix } = require("./config.js")
+const ytdl = require("ytdl-core")
 
 const commandHandler = require("./handlers/command.handler.js")
 const settingsHandler = require("./handlers/settings.handler.js")
@@ -124,6 +125,76 @@ client.on('guildMemberRemove' , (member) => {
   
 
   channel.send(`**😪Nie cieszymy się, że nas opuściłeś ${member.user.username}**😪`)
+})
+
+var servers = {}
+
+client.on('message', message => {
+
+  let args = message.content.substring(prefix.length).split(" ")
+
+  switch (args[0]) {
+      case 'play':
+
+          function play(connection, message){
+              var server = servers[message.guild.id]
+
+              server.dispatcher = connection.play(ytdl(server.queue[0], {filter: "audioonly"}))
+
+              server.queue.shift()
+
+              server.dispatcher.on("end", function(){
+                  if(server.queue[0]){
+                      play(connection, message)
+                  }else {
+                      connection.disconnect()
+                  }
+              })
+          }
+
+          if(!args[1]){
+              message.channel.send("link!")
+              return
+          }
+
+          if(!message.member.voice.channel){
+              message.channel.send("Kanał!")
+              return
+          }
+
+          if(!servers[message.guild.id]) servers[message.guild.id] = {
+              queue: []
+          }
+
+          var server = servers[message.guild.id]
+
+          server.queue.push(args[1])
+
+          if(!message.guild.voiceConnection) message.member.voice.channel.join().then (function(connection){
+              play(connection, message)
+          })
+
+
+
+          break
+
+          case 'skip':
+              var server = servers[message.guild.id]
+              if(server.dispatcher) server.dispatcher.end()
+          break
+
+          case 'stop':
+          var server =  servers[message.guild.id]
+          if(message.guild.voiceConnection){
+              for(var i = server.queue.length -1; i >=0; i--){
+                  server.queue.splice(i, 1)
+              }
+              server.dispatcher.end()
+              console.log('stop')
+          }
+          if(message.guild.connection) message.guild.voiceConnection.disconnect()
+          break
+  }
 })
 
 

@@ -15,6 +15,7 @@
     "axios": "^0.19.2",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
+    "ffmpeg-static": "^4.2.6",
     "fluent-ffmpeg": "^2.1.2",
     "fs": "0.0.1-security",
     "js-helpers": "github:m7rlin/js-helpers",
@@ -22,6 +23,7 @@
     "moment": "^2.27.0",
     "moment-duration-format": "^2.3.2",
     "nodemon": "^2.0.1",
+    "opusscript": "0.0.7",
     "simple-youtube-api": "^5.2.1",
     "ytdl-core": "^2.1.5",
     "ytdl-core-discord": "^1.2.0"
